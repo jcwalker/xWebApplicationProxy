@@ -1,0 +1,17 @@
+﻿$CertificateThumbprint = New-xDscResourceProperty -Name CertificateThumbprint -Type String -Attribute Write -Description "Specifies the certificate thumbprint, as a string, of the certificate that Web Application Proxy presents to users to identify the Web Application Proxy as a proxy for the Federation Service."
+$FederationServiceName = New-xDscResourceProperty -Name FederationServiceName -Type String -Attribute Key -Description "Specifies the name of a Federation Service. This is the Federation Service for which Web Application Proxy provides AD FS proxy functionality and stores the configuration of the Federation Service."
+$FederationServiceTrustCredential = New-xDscResourceProperty -Name FederationServiceTrustCredential -Type PSCredential -Attribute Required -Description "Specifies a PSCredential object that contains the credentials of the AD FS identity that is authorized to register new Federation server proxies. Specify an account that has permissions to manage the Federation Service."
+$ForwardProxy = New-xDscResourceProperty -Name ForwardProxy -Type String -Attribute Write -Description "Specifies the DNS name and port number of an HTTP proxy that this federation server proxy uses to obtain access to the federation service. Specify the value for this parameter in the following format: FQDN:PortNumber. For example, to specify a forward proxy with a host name of 'proxy01' that is located within the corp.contoso.com domain and that can be reached using the HTTP port of 8080 would be 'proxy-01.corp.contoso.com:8080'. Note: This parameter applies only to Federation Services proxy. It does not apply for application publishing."
+$HttpsPort = New-xDscResourceProperty -Name HttpsPort -Type Sint32 -Attribute Write -Description "Specifies the HTTPS port for the Web Application Proxy server. The default value is 443."
+$TlsClientPort = New-xDscResourceProperty -Name TlsClientPort -Type Sint32 -Attribute Write -Description "Specifies the port for the TLS client. Web Application Proxy uses this port for user certificate authentication. The default value is 49443."
+
+
+$WebApplicationProxyParams = @{
+    Name = 'MSFT_xInstallWebApplicationProxy'
+    Property = $CertificateThumbprint,$FederationServiceName,$FederationServiceTrustCredential,$ForwardProxy,$HttpsPort,$TlsClientPort
+    FriendlyName = 'xInstallWebApplicationProxy'
+    ModuleName = 'xWebApplicationProxy'
+    Path = 'C:\Program Files\WindowsPowerShell\Modules\'
+}
+
+New-xDscResource @WebApplicationProxyParams

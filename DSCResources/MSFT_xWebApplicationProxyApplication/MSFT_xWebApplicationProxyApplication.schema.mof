@@ -1,0 +1,22 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xWebApplicationProxyApplication")]
+class MSFT_xWebApplicationProxyApplication : OMI_BaseResource
+{
+	[Key, Description("Specifies a friendly name for the published web application.")] String Name;
+	[Write, Description("Specifies the name of the relying party configured on the AD FS federation server.")] String ADFSRelyingPartyName;
+	[Write, Description("Specifies the service principal name (SPN) of the backend server. Use this parameter if the application that the backend server hosts uses Integrated Windows authentication.")] String BackendServerAuthenticationSPN;
+	[Write, Description("Specifies whether Web Application Proxy validates the certificate that the backend server presents with the WAP configuration per application."), ValueMap{"None","ValidateCertificate"}, Values{"None","ValidateCertificate"}] String BackendServerCertificateValidation;
+	[Write, Description("Specifies the backend address of the web application. Specify by protocol and host name or IP address. Include the trailing slash (/). You can also include a port number and path.")] String BackendServerUrl;
+	[Write, Description("If this parameter is set to ValidateCertificate then the browser sends a certificate with each request and validates that the device certificate thumbprint from the certificate is included in the token or the cookie."), ValueMap{"None","ValidateCertificate"}, Values{"None","ValidateCertificate"}] String ClientCertificateAuthenticationBindingMode;
+	[Write, Description("Specifies the certificate thumbprint, as a string, of the certificate that a client supplies for the preauthentication feature. This parameter is only relevant when you specify the value of ClientCertificate for the ExternalPreauthentication parameter.")] String ClientCertificatePreauthenticationThumbprint;
+	[Write, Description("Indicates that Web Application Proxy does not translate HTTP host headers from public host headers to internal host headers when it forwards the request to the published application.")] Boolean DisableTranslateUrlInRequestHeaders;
+	[Write, Description("Indicates whether to disable the use of the HttpOnly flag when Web Application Proxy sets the access cookie. The access cookie provides single sign-on access to an application.")] Boolean DisableHttpOnlyCookieProtection;
+	[Write, Description("Indicates that Web Application Proxy does not translate internal host names to public host names in Content-Location, Location, and Set-Cookie response headers in redirect responses.")] Boolean DisableTranslateUrlInResponseHeaders;
+	[Write, Description("Specifies the certificate thumbprint, as a string, of the certificate to use for the address specified by the ExternalUrl parameter.")] String ExternalCertificateThumbprint;
+	[Write, Description("Specifies the pre-authentication method that Web Application Proxy uses."), ValueMap{"ADFS","ClientCertificate","PassThrough"}, Values{"ADFS","ClientCertificate","PassThrough"}] String ExternalPreauthentication;
+	[Write, Description("Specifies the external address, as a URL, for the web application. Include the trailing slash (/).")] String ExternalUrl;
+	[Write, Description("Specifies the length of time, in seconds, until Web Application Proxy closes incomplete HTTP transactions.")] Uint32 InactiveTransactionsTimeoutSec;
+	[Write, Description("Indicates that Web Application Proxy provides the URL of the federation server that performs Open Authorization (OAuth) when users connect to the application by using a Windows Store app.")] Boolean UseOAuthAuthentication;
+	[Required, Description("Specifies if the WebApplicationProxyApplication should be present or absent"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+};
+
